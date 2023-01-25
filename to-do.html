@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> To do list </title>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            //not allowed to submit a task, if i havent actually typed it. When i first load the page the submit button is disabled by default
+            document.querySelector('#submit').disabled = true;
+
+            //i dont want the submit button to be disabled after i typed a value.
+            document.querySelector('#task').onkeyup = () => {
+                if (document.querySelector('#task').value.length > 0) {
+                document.querySelector('#submit').disabled = false;
+            } else {
+                document.querySelector('#submit').disabled = true;
+            }
+        }
+
+            document.querySelector('form').onsubmit = () => {
+                const task = document.querySelector('#task').value;
+
+                const li = document.createElement('li');
+                li.innerHTML = task;
+
+                //adding the new html element to the list
+                document.querySelector('#tasks').append(li);
+
+                //after i submit the first task, submit button is disabled again until i type
+                document.querySelector('#submit').disabled = true;
+
+                //i want to clear the input field after each input
+                document.querySelector('#task').value = '';
+
+                //stop form from submitting
+                return false;
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <h1>To-do List</h1>
+    <ul id="tasks"></ul>
+    <form>
+        <input id="task" placeholder="New Task" type="text">
+        <input type="submit" id="submit">
+    </form>
+</body>
+
+</html>
